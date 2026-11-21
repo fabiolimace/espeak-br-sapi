@@ -57,15 +57,15 @@ endfunction()
 
 FetchContent_Declare(
     espeak-ng
-    GIT_REPOSITORY https://github.com/gozaltech/espeak-ng.git
-    GIT_TAG dev
+    GIT_REPOSITORY https://github.com/fabiolimace/espeak-br.git
+    GIT_TAG master_espeak-br
     GIT_SHALLOW TRUE
 )
 
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries (DLL)" FORCE)
 set(USE_ASYNC OFF CACHE BOOL "Disable async espeak-ng" FORCE)
 set(USE_MBROLA OFF CACHE BOOL "Disable MBROLA support" FORCE)
-set(USE_LIBSONIC ON CACHE BOOL "Enable libsonic support" FORCE)
+set(USE_LIBSONIC OFF CACHE BOOL "Enable libsonic support" FORCE)
 set(USE_LIBPCAUDIO OFF CACHE BOOL "Disable pcaudio support" FORCE)
 set(USE_KLATT ON CACHE BOOL "Enable Klatt support" FORCE)
 set(USE_SPEECHPLAYER ON CACHE BOOL "Enable SpeechPlayer support" FORCE)

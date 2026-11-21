@@ -28,6 +28,7 @@ UninstallDisplayIcon={autopf}\espeak-ng-sapi\EspeakSAPI.dll
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 
 [CustomMessages]
 english.DonationTitle=Support eSpeak-NG SAPI
@@ -44,35 +45,33 @@ russian.DonatePayPal=Пожертвовать через PayPal
 russian.DonateYooMoney=Пожертвовать через YooMoney
 russian.SberbankLabel=Или на карту Сбербанка:
 
+brazilianportuguese.DonationTitle=Support eSpeak-NG SAPI
+brazilianportuguese.DonationSubtitle=Ajude-nos a continuar desenvolvendo este wrapper SAPI
+brazilianportuguese.DonationMessage=Obrigado por instalar o eSpeak-NG SAPI5 Wrapper!%n%nEste wrapper SAPI é desenvolvido e mantido por gozaltech. Seu apoio nos ajuda a continuar aprimorando o wrapper e adicionando novos recursos.%n%nSe você considera este software útil, por favor, considere apoiar o seu desenvolvimento:
+brazilianportuguese.DonatePayPal=Doe via PayPal
+brazilianportuguese.DonateYooMoney=Doe via YooMoney
+brazilianportuguese.SberbankLabel=Ou via número de cartão do Sberbank:
+
 [Files]
-Source: "..\output\x86\EspeakSAPI.dll"; DestDir: "{autopf32}\espeak-ng-sapi"; Flags: ignoreversion regserver 32bit
-Source: "..\output\x86\espeak-ng.dll"; DestDir: "{autopf32}\espeak-ng-sapi"; Flags: ignoreversion 32bit
 Source: "..\output\x64\EspeakSAPI.dll"; DestDir: "{autopf}\espeak-ng-sapi"; Flags: ignoreversion regserver; Check: Is64BitInstallMode
 Source: "..\output\x64\espeak-ng.dll"; DestDir: "{autopf}\espeak-ng-sapi"; Flags: ignoreversion; Check: Is64BitInstallMode
 Source: "..\output\x64\EspeakSAPIConfig.exe"; DestDir: "{autopf}\espeak-ng-sapi"; Flags: ignoreversion; Check: Is64BitInstallMode
-Source: "..\output\x86\EspeakSAPIConfig.exe"; DestDir: "{autopf32}\espeak-ng-sapi"; Flags: ignoreversion; Check: not Is64BitInstallMode
 Source: "..\output\espeak-ng-data\*"; DestDir: "{commonappdata}\espeak-ng-sapi\data"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 ; Start Menu shortcut - points to appropriate configurator based on system architecture
 Name: "{autoprograms}\eSpeak-NG SAPI Configurator"; Filename: "{autopf}\espeak-ng-sapi\EspeakSAPIConfig.exe"; IconFilename: "{autopf}\espeak-ng-sapi\EspeakSAPIConfig.exe"; Check: Is64BitInstallMode
-Name: "{autoprograms}\eSpeak-NG SAPI Configurator"; Filename: "{autopf32}\espeak-ng-sapi\EspeakSAPIConfig.exe"; IconFilename: "{autopf32}\espeak-ng-sapi\EspeakSAPIConfig.exe"; Check: not Is64BitInstallMode
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Speech\Voices\TokenEnums\eSpeak-NG"; Flags: uninsdeletekey; Check: Is64BitInstallMode
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Speech\Voices\TokenEnums\eSpeak-NG"; ValueType: string; ValueName: ""; ValueData: "eSpeak-NG Voices"; Check: Is64BitInstallMode
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Speech\Voices\TokenEnums\eSpeak-NG"; ValueType: string; ValueName: "CLSID"; ValueData: "{{8F2D6C4B-1E9A-4F3D-A2B8-5C7E9D3A6F1B}}"; Check: Is64BitInstallMode
-Root: HKLM32; Subkey: "SOFTWARE\Microsoft\Speech\Voices\TokenEnums\eSpeak-NG"; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "SOFTWARE\Microsoft\Speech\Voices\TokenEnums\eSpeak-NG"; ValueType: string; ValueName: ""; ValueData: "eSpeak-NG Voices"
-Root: HKLM32; Subkey: "SOFTWARE\Microsoft\Speech\Voices\TokenEnums\eSpeak-NG"; ValueType: string; ValueName: "CLSID"; ValueData: "{{8F2D6C4B-1E9A-4F3D-A2B8-5C7E9D3A6F1B}}"
 
 [Run]
 Filename: "regsvr32.exe"; Parameters: "/s ""{autopf}\espeak-ng-sapi\EspeakSAPI.dll"""; Flags: runhidden; Check: Is64BitInstallMode; Description: "Register 64-bit SAPI engine"
-Filename: "regsvr32.exe"; Parameters: "/s ""{autopf32}\espeak-ng-sapi\EspeakSAPI.dll"""; Flags: runhidden; Description: "Register 32-bit SAPI engine"
 
 [UninstallRun]
 Filename: "regsvr32.exe"; Parameters: "/u /s ""{autopf}\espeak-ng-sapi\EspeakSAPI.dll"""; Flags: runhidden; Check: Is64BitInstallMode
-Filename: "regsvr32.exe"; Parameters: "/u /s ""{autopf32}\espeak-ng-sapi\EspeakSAPI.dll"""; Flags: runhidden
 
 [Code]
 var

@@ -33,27 +33,6 @@ if not defined VSINSTALLDIR (
 echo Found Visual Studio at: %VSINSTALLDIR%
 echo.
 
-echo Building x86 version...
-echo.
-
-call "%VSINSTALLDIR%\VC\Auxiliary\Build\vcvarsall.bat" x86
-if errorlevel 1 (
-    echo ERROR: Failed to setup x86 environment.
-    exit /b 1
-)
-
-cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_LINKER=lld-link -DCMAKE_RC_COMPILER=llvm-rc -DCMAKE_RC_FLAGS="/C 65001" -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded -S . -B %BUILD_DIR_X86%
-if errorlevel 1 (
-    echo ERROR: CMake x86 configuration failed.
-    exit /b 1
-)
-
-cmake --build %BUILD_DIR_X86%
-if errorlevel 1 (
-    echo ERROR: x86 build failed.
-    exit /b 1
-)
-
 echo.
 
 call "%VSINSTALLDIR%\VC\Auxiliary\Build\vcvarsall.bat" x64
@@ -78,14 +57,6 @@ echo.
 echo Copying results to output directory...
 echo.
 
-echo Copying x86 SAPI DLL...
-copy /Y "%BUILD_DIR_X86%\bin\EspeakSAPI.dll" "%OUTPUT_DIR%\x86\"
-
-echo Copying x86 Configurator...
-copy /Y "%BUILD_DIR_X86%\bin\EspeakSAPIConfig.exe" "%OUTPUT_DIR%\x86\"
-
-echo Copying x86 espeak-ng DLL...
-copy /Y "%BUILD_DIR_X86%\bin\espeak-ng.dll" "%OUTPUT_DIR%\x86\"
 
 echo Copying x64 SAPI DLL...
 copy /Y "%BUILD_DIR_X64%\bin\EspeakSAPI.dll" "%OUTPUT_DIR%\x64\"
@@ -96,15 +67,18 @@ copy /Y "%BUILD_DIR_X64%\bin\EspeakSAPIConfig.exe" "%OUTPUT_DIR%\x64\"
 echo Copying x64 espeak-ng DLL...
 copy /Y "%BUILD_DIR_X64%\bin\espeak-ng.dll" "%OUTPUT_DIR%\x64\"
 
-echo Copying espeak-ng data from x86 build...
-if exist "%BUILD_DIR_X86%\_deps\espeak-ng-build\espeak-ng-data" (
-    xcopy /E /I /Y "%BUILD_DIR_X86%\_deps\espeak-ng-build\espeak-ng-data" "%OUTPUT_DIR%\espeak-ng-data"
+
+
+-echo Copying espeak-ng data from x86 build...
+if exist "%BUILD_DIR_X64%\_deps\espeak-ng-build\espeak-ng-data" (
+    xcopy /E /I /Y "%BUILD_DIR_X64%\_deps\espeak-ng-build\espeak-ng-data" "%OUTPUT_DIR%\espeak-ng-data"
     echo Successfully copied espeak-ng-data from x86 build
 ) else (
     echo ERROR: espeak-ng-data not found at %BUILD_DIR_X86%\_deps\espeak-ng-build\espeak-ng-data
     echo The x86 build must complete successfully before copying data.
     exit /b 1
 )
+
 
 echo.
 echo Building installer with InnoSetup...
